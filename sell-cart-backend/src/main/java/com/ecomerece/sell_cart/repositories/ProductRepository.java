@@ -2,12 +2,12 @@ package com.ecomerece.sell_cart.repositories;
 
 import com.ecomerece.sell_cart.model.Category;
 import com.ecomerece.sell_cart.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByCategoryOrderByPriceAsc(Category category);
+    Page<Product> findByCategoryOrderByPriceAsc(Category category, Pageable pageDetails);
 
-    List<Product> findByProductNameLikeIgnoreCase(String keyword);
+    Page<Product> findByProductNameLikeIgnoreCase(String keyword, Pageable pageDetails);
 }
