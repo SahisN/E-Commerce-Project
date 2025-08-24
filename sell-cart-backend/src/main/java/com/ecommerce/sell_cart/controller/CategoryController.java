@@ -18,6 +18,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
 
+
     @GetMapping("/public/categories")
     public ResponseEntity<CategoryResponse> getAllCategories(
             @RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
