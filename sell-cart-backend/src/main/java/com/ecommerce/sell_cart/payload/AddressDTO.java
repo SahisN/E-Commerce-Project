@@ -1,20 +1,16 @@
-package com.ecommerce.sell_cart.model;
+package com.ecommerce.sell_cart.payload;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "addresses")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AddressDTO {
+
     private Long addressId;
 
     @NotBlank
@@ -40,16 +36,4 @@ public class Address {
     @Size(min = 5, message = "zipcode must be at least 5 characters")
     private String zipcode;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public Address(String street, String buildingName, String city, String state, String country, String zipcode) {
-        this.street = street;
-        this.buildingName = buildingName;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.zipcode = zipcode;
-    }
 }

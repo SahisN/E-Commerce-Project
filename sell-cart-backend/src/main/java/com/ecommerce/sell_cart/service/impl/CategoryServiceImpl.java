@@ -35,6 +35,7 @@ public class CategoryServiceImpl implements CategoryService{
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
+
         Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
         Page<Category> categoryPage = categoryRepository.findAll(pageDetails);
 
@@ -94,8 +95,6 @@ public class CategoryServiceImpl implements CategoryService{
     public CategoryDTO updateCategory(CategoryDTO categoryDTO, Long categoryId) {
 
         Category savedCategory = categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category", "Category Id", categoryId));
-
-
 
         Category category = modelMapper.map(categoryDTO, Category.class);
 
