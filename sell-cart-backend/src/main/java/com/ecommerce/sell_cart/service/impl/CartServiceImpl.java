@@ -59,7 +59,7 @@ public class CartServiceImpl implements CartService {
             throw new ApiException(product.getProductName() + " is not available");
         }
 
-        if(product.getQuantity() < quantity) {
+        if(quantity > product.getQuantity()) {
             throw new ApiException(product.getProductName() + " of " + quantity + " is not available");
         }
 
