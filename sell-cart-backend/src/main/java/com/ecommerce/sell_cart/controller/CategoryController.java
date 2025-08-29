@@ -4,6 +4,8 @@ import com.ecommerce.sell_cart.config.AppConstants;
 import com.ecommerce.sell_cart.payload.CategoryDTO;
 import com.ecommerce.sell_cart.payload.CategoryResponse;
 import com.ecommerce.sell_cart.service.CategoryService;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +18,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-
-
 
     @GetMapping("/public/categories")
     public ResponseEntity<CategoryResponse> getAllCategories(

@@ -76,6 +76,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/h2-console/**").permitAll()
 //                                .requestMatchers("/api/admin/**").permitAll()
 //                                .requestMatchers("/api/public/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers("/images/**").permitAll()
@@ -94,11 +95,10 @@ public class WebSecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web -> web.ignoring().requestMatchers("/v2/api-docs",
+        return (web -> web.ignoring().requestMatchers("/v3/api-docs",
                 "/configuration/ui",
                 "/swagger-resources/**",
                 "/configuration/security",
-                "/swagger-ui.html",
                 "/webjars/***"));
     }
 
