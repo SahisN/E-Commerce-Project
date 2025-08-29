@@ -1,4 +1,4 @@
-# 🛒 Sell Cart (WIP)
+# 🛒 Application Name: Sell Cart (WIP)
 
 Sell Cart is a full-stack e-commerce web application currently under development.  
 It is designed for **individual buyers and sellers** to list, browse, and purchase products — whether new or used.  
