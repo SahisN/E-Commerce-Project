@@ -50,6 +50,9 @@ public class ProductServiceImpl implements ProductService {
     @Value("${project.image}")
     private String path;
 
+    @Value("${image.base.url}")
+    private String imageBaseUrl;
+
     @Override
     public ProductDTO addProduct(Long categoryId, ProductDTO productDTO) {
         // throws exception is categoryId is invalid i.e. if category 4 was called but never created
@@ -72,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
         // calculate special price using discount percent
         double specialPrice = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
 
-        product.setImage("default.png");
+        product.setImage("default.svg");
         product.setSpecialPrice(specialPrice);
         Product savedProduct = productRepository.save(product);
 
@@ -100,7 +103,11 @@ public class ProductServiceImpl implements ProductService {
         // mapping product list to productDTO list
         List<ProductDTO> productDTOS = products
                 .stream()
-                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .map(product -> {
+                    ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
+                    productDTO.setImage(imageBaseUrl + productDTO.getImage());
+                    return productDTO;
+                })
                 .toList();
 
         ProductResponse productResponse = new ProductResponse();
@@ -113,6 +120,7 @@ public class ProductServiceImpl implements ProductService {
 
         return productResponse;
     }
+
 
     @Override
     public ProductResponse searchByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortDirection) {
