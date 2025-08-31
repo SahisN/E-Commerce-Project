@@ -1,15 +1,19 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "../shared/ProductCard";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../store/actions";
+import { fetchCategories } from "../../store/actions";
 import { useEffect } from "react";
 import Filter from "./Filter";
-import useProductFilter from "./useProductFilter";
+import useProductFilter from "../../hook/useProductFilter";
+import Loader from "../shared/Loader";
+import Paginations from "../shared/Paginations";
 
 const Product = () => {
   const { isLoading, errorMessage } = useSelector((state) => state.errors);
 
-  const { products, categories } = useSelector((state) => state.products);
+  const { products, categories, pagination } = useSelector(
+    (state) => state.products
+  );
   const dispatch = useDispatch();
   useProductFilter();
 
@@ -21,7 +25,7 @@ const Product = () => {
     <div className="lg:px-14 sm:px-8 px-4 py-14 2xl:w-[90%] 2x1:mx-auto">
       <Filter categories={categories ? categories : []} />
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader message={"Fetching Products..."} />
       ) : errorMessage ? (
         <div className="flex justify-center items-center h-[200px]">
           <FaExclamationTriangle className="text-red-700 text-3xl mr-2" />
@@ -34,6 +38,14 @@ const Product = () => {
           <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6">
             {products &&
               products.map((item, i) => <ProductCard key={i} {...item} />)}
+          </div>
+
+          {/** Product Result divider */}
+          <div className="flex justify-center pt-10">
+            <Paginations
+              numberOfPage={pagination?.totalPages}
+              totalProduct={pagination?.totalElements}
+            />
           </div>
         </div>
       )}
