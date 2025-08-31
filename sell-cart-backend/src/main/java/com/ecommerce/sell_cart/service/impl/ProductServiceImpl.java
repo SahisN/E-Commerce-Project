@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -84,7 +85,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection) {
+    public ProductResponse getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection, String keyword, String category) {
         // create pagination object, this will help return products with pagination
         Sort sortByAndOrder = sortDirection.equalsIgnoreCase("asc")
                 ? Sort.by(sortBy).ascending()
@@ -92,13 +93,24 @@ public class ProductServiceImpl implements ProductService {
 
         Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
 
-        Page<Product> productPage = productRepository.findAll(pageDetails);
+        // fetches product based on keyword if provided
+        Specification<Product> spec = Specification.unrestricted();
+        if(keyword != null && !keyword.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder)
+                    -> criteriaBuilder.like(criteriaBuilder.lower(root.get("productName")), "%" + keyword.toLowerCase() + "%")
+                    );
+        }
+
+        // fetches product based on category if provided
+        if(category != null && !category.isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder)
+                    -> criteriaBuilder.like(root.get("category").get("categoryName"), category)
+            );
+        }
+
+        Page<Product> productPage = productRepository.findAll(spec, pageDetails);
         List<Product> products = productPage.getContent();
 
-        // check if product size is empty
-        if(products.isEmpty()) {
-            throw new ApiException("No product available");
-        }
 
         // mapping product list to productDTO list
         List<ProductDTO> productDTOS = products
