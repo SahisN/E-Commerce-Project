@@ -7,6 +7,7 @@ import Filter from "./Filter";
 import useProductFilter from "../../hook/useProductFilter";
 import Loader from "../shared/Loader";
 import Paginations from "../shared/Paginations";
+import ErrorMessage from "../shared/ErrorMessage";
 
 const Product = () => {
   const { isLoading, errorMessage } = useSelector((state) => state.errors);
@@ -27,12 +28,7 @@ const Product = () => {
       {isLoading ? (
         <Loader message={"Fetching Products..."} />
       ) : errorMessage ? (
-        <div className="flex justify-center items-center h-[200px]">
-          <FaExclamationTriangle className="text-red-700 text-3xl mr-2" />
-          <span className="text-red-900 text-lg font-medium">
-            {errorMessage}
-          </span>
-        </div>
+        <ErrorMessage errorMessage={errorMessage} />
       ) : (
         <div className="min-h-[700px]">
           <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6">
