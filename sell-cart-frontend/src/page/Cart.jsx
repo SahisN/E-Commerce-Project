@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ItemContent from "../components/cart/ItemContent";
 import CartEmpty from "../components/cart/CartEmpty";
+import { formatPrice } from "../utils/formatPrice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -12,8 +13,9 @@ const Cart = () => {
   const newCart = { ...cart };
 
   newCart.totalPrice = cart?.reduce(
-    (acc, currentCart) =>
-      acc * Number(currentCart?.specialPrice) * Number(currentCart?.quantity),
+    (accumulator, currentCart) =>
+      accumulator +
+      Number(currentCart?.specialPrice) * Number(currentCart?.quantity),
     0
   );
 
@@ -57,7 +59,7 @@ const Cart = () => {
         <div className="flex text-sm gap-1 flex-col">
           <div className="flex justify-between w-full md:text-lg text-sm font-semibold">
             <span>SubTotal</span>
-            <span>$400</span>
+            <span>{formatPrice(newCart?.totalPrice)}</span>
           </div>
           <p className="text-slate-500">
             Tax and shipping calculated at checkout
