@@ -6,12 +6,13 @@ import { RxCross1 } from "react-icons/rx";
 import { IoIosMenu } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const path = useLocation().pathname;
   const [navbarOpen, setNavbarOpen] = useState(false);
   const { cart } = useSelector((state) => state.carts);
-  console.log(navbarOpen);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <div className="h-[70px] bg-custom-gradient text-white z-50 flex items-center sticky top-0">
@@ -26,7 +27,7 @@ const Navbar = () => {
         <ul
           className={`flex sm:gap-10 gap-4 sm:items-center text-slate-800 sm:static absolute left-0 top-[70px] sm:shadow-none shadow-md ${
             navbarOpen ? "h2-fit sm:pb-0 pb-5" : "h-0 overflow-hidden"
-          } transition-all duration-100 sm:h-fit sm:bg-none bg-custom-gradient text-white sm:w-fit w-full sm:flex-row flex-col px-4 sm:px-0`}
+          } transition-all duration-100 sm:h-fit sm:bg-none bg-custom-gradient text-white sm:w-fit w-full sm:flex-row flex-col px-4 py-1 sm:px-0`}
         >
           <li className="font-[500] transition-all duration-150">
             <Link
@@ -98,16 +99,21 @@ const Navbar = () => {
               </Badge>
             </Link>
           </li>
-
-          <li className="font-[500] transition-all duration-150">
-            <Link
-              to="/Login"
-              className="flex items-center space-x-2 px-4 bg-amber-400 text-black rounded py-1 hover:bg-amber-600"
-            >
-              <FiLogIn />
-              Login
-            </Link>
-          </li>
+          {user && user.id ? (
+            <li className="font-[500] transition-all duration-150">
+              <UserMenu />
+            </li>
+          ) : (
+            <li className="font-[500] transition-all duration-150">
+              <Link
+                to="/Login"
+                className="flex items-center space-x-2 px-4 bg-amber-400 text-black rounded py-1 hover:bg-amber-600"
+              >
+                <FiLogIn />
+                Login
+              </Link>
+            </li>
+          )}
         </ul>
         <button
           onClick={() => setNavbarOpen(!navbarOpen)}

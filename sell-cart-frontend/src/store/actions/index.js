@@ -121,3 +121,22 @@ export const removeFromCart = (data, toast) => (dispatch, getState) => {
   toast.success(`Removed ${data.productName} from cart`);
   localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
 };
+
+export const authenticationSignInUser =
+  (sendData, toast, reset, navigate, setLoader) => async (dispatch) => {
+    try {
+      setLoader(true);
+      console.log(sendData);
+      const { data } = await Api.post("/auth/login", sendData);
+      dispatch({ type: "LOGIN_USER", payload: data });
+      localStorage.setItem("auth", JSON.stringify(data));
+      reset();
+      toast.success("Login Success");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message || "Unable to login");
+    } finally {
+      setLoader(false);
+    }
+  };
