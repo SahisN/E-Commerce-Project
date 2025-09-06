@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { RiLoginCircleFill } from "react-icons/ri";
+import { RiShoppingBag2Fill } from "react-icons/ri";
 import InputField from "../components/shared/InputField";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { authenticationSignInUser } from "../store/actions";
+import { signUpNewUser } from "../store/actions";
 import toast from "react-hot-toast";
 import LoaderSpinner from "../components/shared/LoaderSpinner";
 
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
@@ -22,21 +22,21 @@ const Login = () => {
     mode: "onTouched",
   });
 
-  const loginHandler = async (data) => {
+  const signupHandler = async (data) => {
     console.log("Login Click");
-    dispatch(authenticationSignInUser(data, toast, reset, navigate, setLoader));
+    dispatch(signUpNewUser(data, toast, reset, navigate, setLoader));
   };
 
   return (
     <div className="min-h-[calc(100vh-64px)] flex justify-center items-center">
       <form
-        onSubmit={handleSubmit(loginHandler)}
+        onSubmit={handleSubmit(signupHandler)}
         className="sm:w-[450px] w-[360px] shadow-custom py-8 sm:px-8 px-4 rounded"
       >
         <div className="flex flex-col items-center justify-center space-y-4">
-          <RiLoginCircleFill className="text-slate-800" size={50} />
+          <RiShoppingBag2Fill className="text-slate-800" size={50} />
           <h1 className="text-slate-800 text-center font-montserrat lg:text-3xl text-2xl font-bold">
-            Login Here
+            Sign up
           </h1>
         </div>
         <hr className="mt-2 mb-5 text-black" />
@@ -52,11 +52,22 @@ const Login = () => {
           />
 
           <InputField
+            label="Email"
+            required
+            id="email"
+            type="email"
+            message="Email is required"
+            register={register}
+            errors={errors}
+          />
+
+          <InputField
             label="Password"
             required
             id="password"
             type="password"
             message="Password is required"
+            min={6}
             register={register}
             errors={errors}
           />
@@ -71,19 +82,19 @@ const Login = () => {
           {loader ? (
             <>
               <LoaderSpinner size={25} />
-              Loging in...
+              Signing in...
             </>
           ) : (
-            <>Login</>
+            <>Sign up</>
           )}
         </button>
         <p className="text-center text-sm text-slate-700 mt-[20px]">
-          Don't have an account?{" "}
+          Already Have an Account?{" "}
           <Link
             className="font-semibold underline hover:text-blue-600"
-            to="/signup"
+            to="/login"
           >
-            <span>Signup</span>
+            <span>Login</span>
           </Link>
         </p>
       </form>
@@ -91,4 +102,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
