@@ -3,6 +3,7 @@ const initialState = {
   errorMessage: null,
   categoryLoader: false,
   categoryError: null,
+  buttonLoader: false,
 };
 
 export const errorReducer = (state = initialState, action) => {
