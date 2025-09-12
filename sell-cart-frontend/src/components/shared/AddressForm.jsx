@@ -1,11 +1,13 @@
-import { useState } from "react";
 import InputField from "./InputField";
 import LoaderSpinner from "./LoaderSpinner";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { FaAddressCard } from "react-icons/fa";
-import { useSelector } from "react-redux";
-const AddressForm = () => {
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { updateUserAddress } from "../../store/actions";
+
+const AddressForm = ({ address, setOpenAddressModal }) => {
+  const dispatch = useDispatch();
   const { buttonLoader } = useSelector((state) => state.errors);
   const {
     register,
@@ -16,8 +18,14 @@ const AddressForm = () => {
     mode: "onTouched",
   });
 
+  const addressSubmitHandler = async (data) => {
+    dispatch(
+      updateUserAddress(data, toast, address?.addressId, setOpenAddressModal)
+    );
+  };
+
   return (
-    <form onSubmit={handleSubmit()} className="">
+    <form onSubmit={handleSubmit(addressSubmitHandler)} className="">
       <div className="flex justify-center items-center mb-4 font-semibold text-2xl text-slate-800 py-2 px-4">
         <FaAddressCard className="text-slate-800" size={50} />
         <h1 className="text-slate-800 text-center font-montserrat lg:text-3xl text-2xl font-bold">
@@ -38,7 +46,7 @@ const AddressForm = () => {
         <InputField
           label="Building Name"
           required
-          id="building"
+          id="buildingName"
           type="text"
           message="Enter Building Name"
           register={register}
@@ -68,7 +76,7 @@ const AddressForm = () => {
         <InputField
           label="Zipcode"
           required
-          id="pincode"
+          id="zipcode"
           type="text"
           message="Zipcode is required"
           register={register}
