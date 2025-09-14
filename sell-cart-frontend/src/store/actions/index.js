@@ -172,11 +172,20 @@ export const updateUserAddress =
   (sendData, toast, addressId, setOpenAddressModal) =>
   async (dispatch, getState) => {
     dispatch({ type: "BUTTON_LOADER" });
-    console.log(sendData);
 
     try {
-      const { data } = await Api.post("/addresses", sendData);
-      console.log(data);
+      // if addressId exist, make a update request
+      if (addressId) {
+        await Api.put(`/address/${addressId}`, sendData);
+      }
+
+      // make a post request, if addressId doesn't exist
+      else {
+        const { data } = await Api.post("/addresses", sendData);
+      }
+
+      dispatch(getUserAddresses());
+
       toast.success("Address created!");
       dispatch({ type: "IS_SUCCESS" });
     } catch (error) {
@@ -209,3 +218,29 @@ export const selectUserCheckoutAddress = (address) => {
     payload: address,
   };
 };
+
+export const clearCheckoutAddress = () => {
+  return {
+    type: "REMOVE_CHECKOUT_ADDRESS",
+  };
+};
+
+export const deleteUserAddress =
+  (toast, addressId, setOpenDeleteModal) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: "BUTTON_LOADER" });
+      await Api.delete(`/address/${addressId}`);
+      dispatch(getUserAddresses());
+      dispatch(clearCheckoutAddress());
+      toast.success("Address deleted successfully");
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: "IS_ERROR",
+        payload:
+          error?.response?.data?.message || "Unable to connect to the server",
+      });
+    } finally {
+      setOpenDeleteModal(false);
+    }
+  };

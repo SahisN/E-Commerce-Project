@@ -14,10 +14,10 @@ const AddressList = ({
   addresses,
   setSelectedAddress,
   setOpenAddressModal,
+  setOpenDeleteModal,
 }) => {
   const dispatch = useDispatch();
   const { selectedUserCheckoutAddress } = useSelector((state) => state.auth);
-  console.log("selectedAddress: " + selectedUserCheckoutAddress);
 
   const handleAddressSelection = (address) => {
     dispatch(selectUserCheckoutAddress(address));
@@ -28,6 +28,7 @@ const AddressList = ({
   };
   const onDeleteHandler = (address) => {
     setSelectedAddress(address);
+    setOpenDeleteModal(true);
   };
 
   return (

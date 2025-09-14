@@ -9,7 +9,7 @@ const Checkout = () => {
   const dispatch = useDispatch(0);
   const { address } = useSelector((state) => state.auth);
 
-  const steps = ["Address", "Payment Method", "Order Summary"];
+  const steps = ["Address", "Payment Method", "Order Summary", "Payment"];
 
   useEffect(() => {
     dispatch(getUserAddresses());
