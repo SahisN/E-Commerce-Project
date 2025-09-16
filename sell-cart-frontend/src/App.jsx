@@ -11,6 +11,7 @@ import Login from "./page/Login";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import SignUp from "./page/Signup";
 import Checkout from "./page/Checkout";
+import PaymentConfirmation from "./page/PaymentConfirmation";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-confirm" element={<PaymentConfirmation />} />
         </Route>
 
         <Route path="/" element={<PrivateRoute publicPage />}>

@@ -18,6 +18,10 @@ const initialState = {
   carts: { cart: cartItems },
 };
 
+const selectUserCheckoutAddress = localStorage.getItem("CHECKOUT_ADDRESS")
+  ? JSON.parse(localStorage.getItem("CHECKOUT_ADDRESS"))
+  : [];
+
 export const store = configureStore({
   reducer: {
     products: productReducer,
