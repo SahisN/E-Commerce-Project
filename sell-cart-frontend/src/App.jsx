@@ -9,9 +9,9 @@ import Cart from "./page/Cart";
 import { Toaster } from "react-hot-toast";
 import Login from "./page/Login";
 import PrivateRoute from "./components/auth/PrivateRoute";
-import SignUp from "./page/Signup";
 import Checkout from "./page/Checkout";
 import PaymentConfirmation from "./page/PaymentConfirmation";
+import SignUp from "./page/Signup";
 
 function App() {
   return (
