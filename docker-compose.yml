@@ -1,22 +1,37 @@
 services:
-  frontend:
-    build: ./sell-cart-frontend
-    container_name: sell-cart-frontend
-    ports:
-      - "3000:3000"
-    networks:
-      - ecommerce-net
-  
   db:
     image: postgres:latest
     container_name: sell-cart-db
     environment:
-      POSTGRES_PASSWORD: adminpass
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       POSTGRES_DB: sell-cart-db
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-net
+  
+  backend:
+    build: ./sell-cart-backend
+    container_name: sell-cart-backend
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    networks:
+      - ecommerce-net
+
+  frontend:
+    build: ./sell-cart-frontend
+    container_name: sell-cart-frontend
+    ports:
+      - "3000:3000"
     networks:
       - ecommerce-net
 
