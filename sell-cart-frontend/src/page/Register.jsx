@@ -1,4 +1,13 @@
-import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import InputField from "../components/shared/InputField";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import LoaderSpinner from "../components/shared/LoaderSpinner";
+import { RiShoppingBag2Fill } from "react-icons/ri";
+import { signUpNewUser } from "../store/actions";
 
 const Register = () => {
   const navigate = useNavigate();

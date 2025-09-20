@@ -33,10 +33,6 @@ services:
   frontend:
     build: ./sell-cart-frontend
     container_name: sell-cart-frontend
-    environment:
-      VITE_BACK_END_URL: ${VITE_BACK_END_URL}
-      VITE_FRONT_END_URL: ${VITE_FRONT_END_URL}
-      VITE_STRIPE_PUBLISHABLE_KEY: ${VITE_STRIPE_PUBLISHABLE_KEY}
     depends_on:
       - backend
     ports:

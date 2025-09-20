@@ -1,24 +1,21 @@
-# 🛒 Application Name: Sell Cart (WIP)
+# 🛒 Application Name: Sell Cart
 
 Sell Cart is a full-stack e-commerce web application currently under development.  
 It is designed for **individual buyers and sellers** to list, browse, and purchase products — whether new or used.  
 Unlike large corporate marketplaces, Sell Cart focuses on **peer-to-peer commerce**, making it simple for anyone to buy or sell with ease.
 
 ---
-
-## 🚧 Status: Work in Progress
-This project is actively being built. Core features such as product listing, user authentication, and the buying/selling flow are in progress. Expect changes as development continues.
+📸 App Preview
+![Home page](sell-cart-preview/home_page.png)
+![Product Page](sell-cart-preview/product_page.png)
 
 ---
-
-## ✨ Planned Features
+## ✨ Sell Cart Features
 
 - 🔑 **User Accounts** – Register, log in, and manage personal profiles.  
-- 🛍️ **Product Listings** – Create, edit, and delete items with images, details, and pricing.  
 - 🔎 **Search & Browse** – Discover products by keyword or category.  
 - 🛒 **Shopping Cart** – Add items to cart and manage before checkout.  
-- 📦 **Order Management** – Buyers track purchases, sellers manage orders.  
-- 💳 **Checkout & Payments** – Secure transaction flow (future integration).  
+- 💳 **Checkout & Payments** – Secure transaction flow with stripe.  
 
 ---
 
@@ -29,3 +26,10 @@ This project is actively being built. Core features such as product listing, use
 - **Database**: PostgreSQL 
 - **Authentication**: JWT-based auth 
 - **Deployment**:  Docker, AWS 
+
+---
+## 🐳 Installation via Docker
+- `git clone git@github.com:SahisN/E-Commerce-Project.git`
+- `cd E-Commerce-Project`
+- `docker compose --env-file .env up --build -d`
+- go to: `http://localhost:3000/` in any browser
