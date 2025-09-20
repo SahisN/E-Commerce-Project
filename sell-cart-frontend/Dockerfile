@@ -3,13 +3,15 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
+RUN apk add --no-cache python3 make g++ libc-dev
+
 COPY package*.json .
 
 RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "build"]
+RUN npm run build
 
 # --------------
 
