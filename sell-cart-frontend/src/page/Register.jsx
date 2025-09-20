@@ -1,15 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { RiShoppingBag2Fill } from "react-icons/ri";
-import InputField from "../components/shared/InputField";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { signUpNewUser } from "../store/actions";
-import toast from "react-hot-toast";
-import LoaderSpinner from "../components/shared/LoaderSpinner";
+import React from "react";
 
-const SignUp = () => {
+const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
@@ -102,4 +93,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
