@@ -1,13 +1,13 @@
-import ProductCard from "../shared/ProductCard";
+import ProductCard from "../components/shared/ProductCard";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../../store/actions";
+import { fetchCategories } from "../store/actions";
 import { useEffect } from "react";
-import Filter from "./Filter";
-import useProductFilter from "../../hook/useProductFilter";
-import Loader from "../shared/Loader";
-import Paginations from "../shared/Paginations";
-import ErrorMessage from "../shared/ErrorMessage";
+import Filter from "../components/products/Filter";
+import useProductFilter from "../hook/useProductFilter";
+import Loader from "../components/shared/Loader";
+import Paginations from "../components/shared/Paginations";
+import ErrorMessage from "../components/shared/ErrorMessage";
 
 const Product = () => {
   const { isLoading, errorMessage } = useSelector((state) => state.errors);
@@ -35,6 +35,12 @@ const Product = () => {
             {products &&
               products.map((item, i) => <ProductCard key={i} {...item} />)}
           </div>
+
+          {products.length == 0 && (
+            <p className="text-center text-xl text-slate-600">
+              No Products Found
+            </p>
+          )}
 
           {/** Product Result divider */}
           <div className="flex justify-center pt-10">

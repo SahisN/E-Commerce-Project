@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:latest
+    build: ./sell-cart-db
     container_name: sell-cart-db
     environment:
       POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
@@ -37,6 +37,8 @@ services:
       VITE_BACK_END_URL: ${VITE_BACK_END_URL}
       VITE_FRONT_END_URL: ${VITE_FRONT_END_URL}
       VITE_STRIPE_PUBLISHABLE_KEY: ${VITE_STRIPE_PUBLISHABLE_KEY}
+    depends_on:
+      - backend
     ports:
       - "3000:3000"
     networks:
