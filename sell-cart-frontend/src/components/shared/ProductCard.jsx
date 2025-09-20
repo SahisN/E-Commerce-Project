@@ -51,7 +51,7 @@ const ProductCard = ({
         className="w-full overflow-hidden aspect-auto-[3/2]"
       >
         <img
-          className="w-full h-full cursor-pointer transition-transform duration-300 transform hover:scale-105"
+          className="w-[432px] h-[288px] cursor-pointer transition-transform duration-300 transform hover:scale-105"
           src={image}
           alt={productName}
         />
@@ -83,7 +83,7 @@ const ProductCard = ({
 
         {/** Product Price **/}
         <div className="flex items-center justify-between">
-          {specialPrice ? (
+          {specialPrice && price != specialPrice ? (
             <div className="flex flex-col">
               <span className="text-gray-500 line-through">
                 ${Number(price).toFixed(2)}
